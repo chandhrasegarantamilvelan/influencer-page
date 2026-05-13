@@ -1,0 +1,113 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Admin {
+  id             String    @id @default(cuid())
+  email          String    @unique
+  hashedPassword String
+  failedAttempts Int       @default(0)
+  lockedUntil    DateTime?
+  lastLoginAt    DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+model CollaborationRequest {
+  id                String            @id @default(cuid())
+  brandName         String            @db.VarChar(100)
+  contactName       String            @db.VarChar(100)
+  contactEmail      String
+  collaborationType CollaborationType
+  budgetRange       BudgetRange
+  startDate         DateTime
+  endDate           DateTime
+  description       String            @db.VarChar(1000)
+  status            RequestStatus     @default(PENDING)
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  @@index([status])
+  @@index([createdAt(sort: Desc)])
+}
+
+model PortfolioItem {
+  id        String    @id @default(cuid())
+  title     String    @db.VarChar(100)
+  mediaUrl  String
+  mediaType MediaType
+  brand     String
+  category  String
+  active    Boolean   @default(true)
+  sortOrder Int       @default(0)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([active])
+  @@index([sortOrder])
+}
+
+model SocialProfile {
+  id            String   @id @default(cuid())
+  platformName  String
+  handle        String   @db.VarChar(100)
+  profileUrl    String
+  followerCount Int
+  bioExcerpt    String?  @db.VarChar(300)
+  iconUrl       String?
+  sortOrder     Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model EmailLog {
+  id             String      @id @default(cuid())
+  recipientEmail String
+  subject        String
+  status         EmailStatus
+  attempts       Int         @default(0)
+  lastError      String?
+  requestId      String?
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+}
+
+enum CollaborationType {
+  SPONSORED_POST
+  PRODUCT_REVIEW
+  BRAND_AMBASSADOR
+  GIVEAWAY
+  EVENT_APPEARANCE
+  OTHER
+}
+
+enum BudgetRange {
+  UNDER_500
+  RANGE_500_1000
+  RANGE_1000_5000
+  RANGE_5000_10000
+  OVER_10000
+}
+
+enum RequestStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  COMPLETED
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+}
+
+enum EmailStatus {
+  PENDING
+  SENT
+  FAILED
+}

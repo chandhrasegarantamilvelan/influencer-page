@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { RequestsTable } from "@/components/dashboard/RequestsTable";
 
+export const dynamic = "force-dynamic";
+
 export default async function RequestsPage() {
   const requests = await prisma.collaborationRequest.findMany({
     orderBy: { createdAt: "desc" },

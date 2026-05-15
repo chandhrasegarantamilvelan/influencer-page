@@ -3,6 +3,7 @@ import { SectionDivider } from "@/components/ui/SectionDivider";
 import { CollaborationsShowcase } from "@/components/collaborations/CollaborationsShowcase";
 import type { PortfolioItemWithBrand } from "@/types";
 
+export const dynamic = "force-dynamic";
 export const metadata = {
   title: "Collaborations | Influencer Portfolio",
   description:

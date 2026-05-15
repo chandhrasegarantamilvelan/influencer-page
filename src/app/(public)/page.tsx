@@ -7,6 +7,8 @@ import { CTASection } from "@/components/homepage/CTASection";
 import { SectionDivider } from "@/components/ui/SectionDivider";
 import type { PortfolioItemWithBrand } from "@/types";
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   const portfolioItems = await prisma.portfolioItem.findMany({
     where: { active: true },

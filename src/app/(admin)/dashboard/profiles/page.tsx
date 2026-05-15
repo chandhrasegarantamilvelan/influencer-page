@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { ProfilesManager } from "@/components/dashboard/ProfilesManager";
 
+export const dynamic = "force-dynamic";
+
 export default async function ProfilesPage() {
   const profiles = await prisma.socialProfile.findMany({
     orderBy: { sortOrder: "asc" },

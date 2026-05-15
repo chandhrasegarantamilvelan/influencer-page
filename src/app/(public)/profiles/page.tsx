@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { ProfilesClient } from "@/components/profiles/ProfilesClient";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: "Social Profiles",
   description:

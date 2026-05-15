@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { PortfolioManager } from "@/components/dashboard/PortfolioManager";
 
+export const dynamic = "force-dynamic";
+
 const ITEMS_PER_PAGE = 10;
 
 interface PortfolioPageProps {
